@@ -1,0 +1,21 @@
+services:
+  nats:
+    image: nats
+    ports:
+      - "4222:4222"
+    container_name: nats
+
+  publisher:
+    build: ./publisher
+    depends_on:
+      - nats
+
+  worker1:
+    build: ./worker
+    depends_on:
+      - nats
+
+  worker2:
+    build: ./worker
+    depends_on:
+      - nats
